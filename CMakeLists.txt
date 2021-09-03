@@ -5,15 +5,17 @@ set(CMAKE_CXX_STANDARD 17)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(GLIB REQUIRED glib-2.0)
-pkg_check_modules(GST REQUIRED gstreamer-1.0)
+# find_package(PkgConfig REQUIRED)
+# pkg_check_modules(GLIB REQUIRED glib-2.0)
+# pkg_check_modules(GST REQUIRED gstreamer-1.0)
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
 include_directories("gst-rtsp-server")
-include_directories("${GLIB_INCLUDE_DIRS}")
-include_directories("${GST_INCLUDE_DIRS}")
-# include_directories("${GSTREAMER_BASE_INCLUDE_DIRS}")
-# include_directories("${GSTREAMER_RTSP_INCLUDE_DIRS}")
+include_directories("${CONAN_INCLUDE_DIRS_GLIB}")
+include_directories("${CONAN_INCLUDE_DIRS_GSTREAMER}")
+include_directories("${CONAN_INCLUDE_DIRS_GST_PLUGINS_BASE}")
 
 add_library(gstrtspserver
     gst-rtsp-server/gst/rtsp-server/rtsp-address-pool.c
@@ -93,10 +95,9 @@ get_directory_property(hasParent PARENT_DIRECTORY)
 if(hasParent)
   set(GST_RTSP_SERVER_INCLUDE_DIRS
     "${CMAKE_CURRENT_LIST_DIR}/gst-rtsp-server"
-    "${GLIB_INCLUDE_DIRS}"
-    "${GSTREAMER_INCLUDE_DIRS}"
-    "${GSTREAMER_BASE_INCLUDE_DIRS}"
-    "${GSTREAMER_RTSP_INCLUDE_DIRS}"
+    "${CONAN_INCLUDE_DIRS_GLIB}"
+    "${CONAN_INCLUDE_DIRS_GSTREAMER}"
+    "${CONAN_INCLUDE_DIRS_GSTREAMER_BASE}"
     PARENT_SCOPE
   )
 endif()

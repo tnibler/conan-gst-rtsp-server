@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake, tools, Meson
+from conans import ConanFile, CMake, tools
 import os
 
 
@@ -17,11 +17,8 @@ class GstrtspserverConan(ConanFile):
     generators = "cmake"
     requires = (
         "gstreamer/1.18.4",
-        "gobject-introspection/1.68.0",
-        "libffi/3.4.2",
-        # "gst-plugins-base/1.18.4",
-        # "gst-plugins-good/1.18.4",
-        # "gst-plugins-bad/1.18.4",
+        "gst_plugins_base/1.18.4",
+        "glib/2.69.2",
     )
     source_subfolder = "gst-rtsp-server"
     build_subfolder = "build"
