@@ -49,6 +49,6 @@ class GstrtspserverConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ['gstrtspserver']
-        self.cpp_info.includedirs = ['include/gst-rtsp-server']
-        + self.deps_cpp_info['gst_plugins_base'].includedirs
-        + self.deps_cpp_info['gstreamer'].includedirs
+        self.cpp_info.includedirs = ['include/gst-rtsp-server'] + \
+            self.deps_cpp_info['gst_plugins_base'].includedirs + \
+            self.deps_cpp_info['gstreamer'].includedirs
